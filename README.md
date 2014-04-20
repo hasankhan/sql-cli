@@ -37,13 +37,13 @@ To connect to a sql server instance in sql azure invoke mssql as follows
   
 You will get a prompt as follows:
 ```bash
-  Connecting abcdef.database.windows.net...done
-  >
+Connecting abcdef.database.windows.net...done
+mssql>
 ```
 
 To get a list of databases use the '.databases' command
 ```bash
-> .databases
+mssql> .databases
 name
 ------
 master
@@ -52,7 +52,7 @@ mydb
   
 To get a list of tables use the '.tables' command
 ```bash
-> use mydb;
+mssql> use mydb;
 OK
 > .tables
 TABLE_CATALOG  TABLE_SCHEMA  TABLE_NAME                TABLE_TYPE
@@ -60,7 +60,7 @@ TABLE_CATALOG  TABLE_SCHEMA  TABLE_NAME                TABLE_TYPE
 mydb           cstest2       TodoItems                 BASE TABLE
 mydb           cstest2       test                      BASE TABLE
 ```
-To exit the cli use the 'quit' command
+To exit the cli use the '.quit' command
 ```bash
-  > quit
+mssql> .quit
 ```

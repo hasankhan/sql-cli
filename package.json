@@ -1,7 +1,7 @@
 ﻿{
   "name": "sql-cli",
   "author": "Muhammad Hasan Khan",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Cross platform command line interface for SQL Server",
   "tags": [
     "sql",
@@ -16,7 +16,7 @@
   "main": "./lib/cli.js",
   "preferGlobal": "true",
   "engines": {
-    "node": ">= 0.6.15"
+    "node": ">= 0.8"
   },
   "licenses": [
     {
@@ -31,7 +31,8 @@
     "colors": "^0.6.2",
     "easy-table": "0.3.0",
     "validator": "~3.1.0",
-	"prompt": "0.2.12"
+	"prompt": "0.2.12",
+	"underscore.string": "~2.3.3"
   },
   "homepage": "https://github.com/hasankhan/sql-cli",
   "repository": {
