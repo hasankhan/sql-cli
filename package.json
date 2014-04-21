@@ -44,5 +44,8 @@
   },
   "bin": {
     "mssql": "./bin/mssql"
+  },
+  "plugins": {
+      "azure-cli": "./lib/azure-cli-sqldb.js"
   }
 }
