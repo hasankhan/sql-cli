@@ -5,6 +5,7 @@ Cross platform command line interface for SQL Server
 ## Installation
 
 You can install the sql-cli npm package directly.
+
 ```bash
 npm install -g sql-cli
 ```
@@ -37,12 +38,14 @@ To connect to a sql server instance in sql azure invoke mssql as follows
 ```
   
 You will get a prompt as follows:
+
 ```bash
 Connecting abcdef.database.windows.net...done
 mssql>
 ```
 
 To get a list of databases use the '.databases' command
+
 ```bash
 mssql> .databases
 name
@@ -52,6 +55,7 @@ mydb
 ```
   
 To get a list of tables use the '.tables' command
+
 ```bash
 mssql> use mydb;
 OK
@@ -62,12 +66,14 @@ mydb           cstest2       TodoItems                 BASE TABLE
 mydb           cstest2       test                      BASE TABLE
 ```
 To exit the cli use the '.quit' command
+
 ```bash
 mssql> .quit
 ```
 ## Integration with Azure CLI 
 
-This module also serves as extension to Azure CLI tool that allows you to directly connect to database of your Mobile Service. To connect to your mobile service database you can invoke Azure CLI tool as follows:
+This module also serves as an extension to Azure CLI tool that allows you to directly connect to database of your Mobile Service. To connect to your mobile service database you can invoke Azure CLI tool as follows:
+
 ```bash
 azure mobile sqldb connect <mobileservicename> <username> <password>
 ```
