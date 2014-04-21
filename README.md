@@ -30,17 +30,20 @@ Options:
 -q, --query <query>            The query to execute
 -v, --tdsVersion <tdsVersion>  Version of tds protocol to use
 -e, --encrypt                  Enable encryption
-```    
-To connect to a sql server instance in sql azure invoke mssql as follows
+```
+To connect to a SQL Server instance in Azure invoke mssql as follows
 
 ```bash
 mssql -s abcdef.database.windows.net -u username@abcdef -p thepassword -d mydatabase -e
 ```
-  
+
 You will get a prompt as follows:
 
 ```bash
-Connecting abcdef.database.windows.net...done
+Connecting to abcdef.database.windows.net...done
+
+sql-cli version 0.0.9
+Enter ".help" for usage hints.
 mssql>
 ```
 
@@ -49,28 +52,32 @@ To get a list of databases use the '.databases' command
 ```bash
 mssql> .databases
 name
-------
+------------------
 master
-mydb
+test
+
+2 row(s) returned in 12 ms
 ```
-  
+
 To get a list of tables use the '.tables' command
 
 ```bash
-mssql> use mydb;
+mssql> use test;
 OK
-> .tables
-TABLE_CATALOG  TABLE_SCHEMA  TABLE_NAME                TABLE_TYPE
--------------  ------------  ------------------------  ----------
-mydb           cstest2       TodoItems                 BASE TABLE
-mydb           cstest2       test                      BASE TABLE
+mssql> .tables
+TABLE_CATALOG  TABLE_SCHEMA  TABLE_NAME          TABLE_TYPE
+-------------  ------------  ------------------  ----------
+test           dbo           Customers           BASE TABLE
+test           dbo           Orders              BASE TABLE
+
+2 row(s) returned in 24 ms
 ```
 To exit the cli use the '.quit' command
 
 ```bash
 mssql> .quit
 ```
-## Integration with Azure CLI 
+## Integration with Azure CLI
 
 This module also serves as an extension to Azure CLI tool that allows you to directly connect to database of your Mobile Service. To connect to your Mobile Service database you can invoke Azure CLI tool as follows:
 
