@@ -15,26 +15,26 @@ npm install -g sql-cli
 To get list of all parameters type 'mssql -h'
 
 ```bash
-  Usage: mssql [options]
+Usage: mssql [options]
 
-  Options:
+Options:
 
-    -h, --help                     output usage information
-    -V, --version                  output the version number
-    -s, --server [server]          Server to conect to
-    -u, --user [user]              User name to use for authentication
-    -p, --pass [pass]              Password to use for authentication
-    -o, --port [port]              Port to connect to
-    -t, --timeout [timeout]        Connection timeout in ms
-    -d, --database [database]      Database to connect to
-    -q, --query [query]            The query to execute
-    -v, --tdsVersion [tdsVersion]  Version of tds protocol to use
-    -e, --encrypt                  Enable encryption
+  -h, --help                     output usage information
+  -V, --version                  output the version number
+  -s, --server [server]          Server to conect to
+  -u, --user [user]              User name to use for authentication
+  -p, --pass [pass]              Password to use for authentication
+  -o, --port [port]              Port to connect to
+  -t, --timeout [timeout]        Connection timeout in ms
+  -d, --database [database]      Database to connect to
+  -q, --query [query]            The query to execute
+  -v, --tdsVersion [tdsVersion]  Version of tds protocol to use
+  -e, --encrypt                  Enable encryption
 ```    
 To connect to a sql server instance in sql azure invoke mssql as follows
 
 ```bash
-  mssql -s abcdef.database.windows.net -u username@abcdef -p thepassword -d mydatabase -e
+mssql -s abcdef.database.windows.net -u username@abcdef -p thepassword -d mydatabase -e
 ```
   
 You will get a prompt as follows:
