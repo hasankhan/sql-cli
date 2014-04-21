@@ -1,4 +1,4 @@
-﻿## sql-cli
+## sql-cli
 
 Cross platform command line interface for SQL Server
 
@@ -26,6 +26,7 @@ To get list of all parameters type 'mssql -h'
     -o, --port [port]              Port to connect to
     -t, --timeout [timeout]        Connection timeout in ms
     -d, --database [database]      Database to connect to
+    -q, --query [query]            The query to execute
     -v, --tdsVersion [tdsVersion]  Version of tds protocol to use
     -e, --encrypt                  Enable encryption
 ```    
