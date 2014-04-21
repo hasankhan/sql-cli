@@ -72,7 +72,7 @@ mssql> .quit
 ```
 ## Integration with Azure CLI 
 
-This module also serves as an extension to Azure CLI tool that allows you to directly connect to database of your Mobile Service. To connect to your mobile service database you can invoke Azure CLI tool as follows:
+This module also serves as an extension to Azure CLI tool that allows you to directly connect to database of your Mobile Service. To connect to your Mobile Service database you can invoke Azure CLI tool as follows:
 
 ```bash
 azure mobile sqldb connect <mobileservicename> <username> <password>
