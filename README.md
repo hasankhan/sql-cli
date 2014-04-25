@@ -25,17 +25,18 @@ Usage: mssql [options]
 
 Options:
 
--h, --help                     output usage information
--V, --version                  output the version number
--s, --server <server>          Server to conect to
--u, --user <user>              User name to use for authentication
--p, --pass <pass>              Password to use for authentication
--o, --port <port>              Port to connect to
--t, --timeout <timeout>        Connection timeout in ms
--d, --database <database>      Database to connect to
--q, --query <query>            The query to execute
--v, --tdsVersion <tdsVersion>  Version of tds protocol to use
--e, --encrypt                  Enable encryption
+  -h, --help                     output usage information
+  -V, --version                  output the version number
+  -s, --server <server>          Server to conect to
+  -u, --user <user>              User name to use for authentication
+  -p, --pass <pass>              Password to use for authentication
+  -o, --port <port>              Port to connect to
+  -t, --timeout <timeout>        Connection timeout in ms
+  -d, --database <database>      Database to connect to
+  -q, --query <query>            The query to execute
+  -v, --tdsVersion <tdsVersion>  Version of tds protocol to use
+  -e, --encrypt                  Enable encryption
+  -f, --format <format>          The format of output i.e. (csv, table)
 ```
 To connect to a SQL Server instance in Azure invoke mssql as follows
 ```bash
