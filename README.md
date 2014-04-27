@@ -19,24 +19,24 @@ npm install -g
 
 ## Get Started
 
-To get list of all parameters type 'mssql -h'
+To get the list of all parameters type 'mssql -h'
 ```bash
 Usage: mssql [options]
 
 Options:
 
-  -h, --help                     output usage information
-  -V, --version                  output the version number
-  -s, --server <server>          Server to conect to
-  -u, --user <user>              User name to use for authentication
-  -p, --pass <pass>              Password to use for authentication
-  -o, --port <port>              Port to connect to
-  -t, --timeout <timeout>        Connection timeout in ms
-  -d, --database <database>      Database to connect to
-  -q, --query <query>            The query to execute
-  -v, --tdsVersion <tdsVersion>  Version of tds protocol to use
-  -e, --encrypt                  Enable encryption
-  -f, --format <format>          The format of output i.e. (csv, table)
+-h, --help                     output usage information
+-V, --version                  output the version number
+-s, --server <server>          Server to conect to
+-u, --user <user>              User name to use for authentication
+-p, --pass <pass>              Password to use for authentication
+-o, --port <port>              Port to connect to
+-t, --timeout <timeout>        Connection timeout in ms
+-d, --database <database>      Database to connect to
+-q, --query <query>            The query to execute
+-v, --tdsVersion <tdsVersion>  Version of tds protocol to use
+-e, --encrypt                  Enable encryption
+-f, --format <format>          The format of output [csv, table, xml, json]
 ```
 To connect to a SQL Server instance in Azure invoke mssql as follows
 ```bash
@@ -47,12 +47,24 @@ You will get a prompt as follows:
 ```bash
 Connecting to abcdef.database.windows.net...done
 
-sql-cli version 0.0.9
+sql-cli version 0.1.0
 Enter ".help" for usage hints.
 mssql>
 ```
+To get the list of all commands use the '.help' command
+```bash
+mssql> .help
+command         description
+--------------  ----------------------------
+.help           Shows this message
+.tables         Lists all the tables
+.databases      Lists all the databases
+.schema TABLE   Shows the schema of a table
+.indexes TABLE  Shows the indexes of a table
+.quit           Exit the cli
+```
 
-To get a list of databases use the '.databases' command
+To get the list of databases use the '.databases' command
 ```bash
 mssql> .databases
 name
@@ -63,15 +75,15 @@ test
 2 row(s) returned in 12 ms
 ```
 
-To get a list of tables use the '.tables' command
+To get the list of tables use the '.tables' command
 ```bash
 mssql> use test;
 OK
 mssql> .tables
-TABLE_CATALOG  TABLE_SCHEMA  TABLE_NAME          TABLE_TYPE
--------------  ------------  ------------------  ----------
-test           dbo           Customers           BASE TABLE
-test           dbo           Orders              BASE TABLE
+database  schema  name   type
+--------  ------  -----  ----------
+test      dbo     books  BASE TABLE
+test      dbo     test   BASE TABLE
 
 2 row(s) returned in 24 ms
 ```
