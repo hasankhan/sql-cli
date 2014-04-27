@@ -60,7 +60,7 @@ command         description
 .tables         Lists all the tables
 .databases      Lists all the databases
 .schema TABLE   Shows the schema of a table
-.indexes TABLE  Shows the indexes of a table
+.indexes TABLE  Lists all the indexes of a table
 .quit           Exit the cli
 ```
 
