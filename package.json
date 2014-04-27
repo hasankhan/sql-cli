@@ -28,7 +28,6 @@
     "mssql": "0.5.3",
     "underscore": "~1.4.4",
     "commander": "~1.0.4",
-    "colors": "0.6.1",
     "easy-table": "0.3.0",
     "underscore.string": "~2.3.3",
     "q": "~1.0.1",
