@@ -34,9 +34,9 @@ Options:
 -t, --timeout <timeout>        Connection timeout in ms
 -d, --database <database>      Database to connect to
 -q, --query <query>            The query to execute
--v, --tdsVersion <tdsVersion>  Version of tds protocol to use
+-v, --tdsVersion <tdsVersion>  Version of tds protocol to use [7_4, 7_2, 7_3_A, 7_3_B, 7_4]
 -e, --encrypt                  Enable encryption
--f, --format <format>          The format of output [csv, table, xml, json]
+-f, --format <format>          The format of output [table, csv, xml, json]
 ```
 To connect to a SQL Server instance in Azure invoke mssql as follows
 ```bash
