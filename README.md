@@ -55,10 +55,11 @@ To get the list of all commands use the '.help' command
 ```bash
 mssql> .help
 command         description
---------------  ----------------------------
+--------------  --------------------------------
 .help           Shows this message
 .tables         Lists all the tables
 .databases      Lists all the databases
+.read FILENAME  Execute commands in a file
 .schema TABLE   Shows the schema of a table
 .indexes TABLE  Lists all the indexes of a table
 .quit           Exit the cli
