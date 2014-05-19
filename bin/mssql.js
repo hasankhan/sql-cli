@@ -2,4 +2,4 @@
 
 var argv = process.argv.splice(0);
 var cli = new SqlCli();
-cli.run(argv);
+cli.run(argv, process.env);
