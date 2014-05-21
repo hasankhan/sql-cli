@@ -25,18 +25,19 @@ Usage: mssql [options]
 
 Options:
 
--h, --help                     output usage information
--V, --version                  output the version number
--s, --server <server>          Server to conect to
--u, --user <user>              User name to use for authentication
--p, --pass <pass>              Password to use for authentication
--o, --port <port>              Port to connect to
--t, --timeout <timeout>        Connection timeout in ms
--d, --database <database>      Database to connect to
--q, --query <query>            The query to execute
--v, --tdsVersion <tdsVersion>  Version of tds protocol to use [7_4, 7_2, 7_3_A, 7_3_B, 7_4]
--e, --encrypt                  Enable encryption
--f, --format <format>          The format of output [table, csv, xml, json]
+  -h, --help                     output usage information
+  -V, --version                  output the version number
+  -s, --server <server>          Server to conect to
+  -u, --user <user>              User name to use for authentication
+  -p, --pass <pass>              Password to use for authentication
+  -o, --port <port>              Port to connect to
+  -t, --timeout <timeout>        Connection timeout in ms
+  -d, --database <database>      Database to connect to
+  -q, --query <query>            The query to execute
+  -v, --tdsVersion <tdsVersion>  Version of tds protocol to use [7_4, 7_2, 7_3_A, 7_3_B, 7_4]
+  -e, --encrypt                  Enable encryption
+  -f, --format <format>          The format of output [table, csv, xml, json]
+  -c, --config <path>            Read connection information from config file
 ```
 To connect to a SQL Server instance in Azure invoke mssql as follows
 ```bash
@@ -55,13 +56,14 @@ To get the list of all commands use the '.help' command
 ```bash
 mssql> .help
 command         description
---------------  --------------------------------
+--------------  ------------------------------------------
 .help           Shows this message
 .tables         Lists all the tables
 .databases      Lists all the databases
 .read FILENAME  Execute commands in a file
 .schema TABLE   Shows the schema of a table
 .indexes TABLE  Lists all the indexes of a table
+.analyze        Analyzes the database for missing indexes.
 .quit           Exit the cli
 ```
 
