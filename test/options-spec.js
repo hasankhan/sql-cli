@@ -1,22 +1,31 @@
-var proxyquire =  require('proxyquire');
+var proxyquire =  require('proxyquire').noPreserveCache(),
+    _ = require('underscore'),
+    utils = require('./utils');
 
 describe('Options', function() {
     var fs, path, options, config;
 
-    beforeEach(function() {
-        fs = {};
-        path = {};
-        config = { '@noCallThru': true };
-        var Options = proxyquire('../lib/options', { 
-            'fs': fs, 
-            'path': path,
-            'mssql-conf.json': config,
-            'test-conf.json': config
+    function setup() {
+        beforeEach(function() {
+            // remove commander from require cache
+            utils.unloadModule('commander');
+            
+            fs = {};
+            path = {};
+            config = { '@noCallThru': true };
+            var Options = proxyquire('../lib/options', {
+                'fs': fs,
+                'path': path,
+                'mssql-conf.json': config,
+                'test-conf.json': config
+            });
+            options = new Options();
         });
-        options = new Options();
-    });
+    }
 
-    describe('init', function() {    
+    describe('init', function() {
+        setup();
+
         it('parses and copies args', function() {
             fs.existsSync = jasmine.createSpy().andReturn(true);
 
@@ -30,10 +39,10 @@ describe('Options', function() {
                 '-d', 'test',
                 '-q', '.tables',
                 '-v', '7_2',
-                '-e', 
+                '-e',
                 '-f', 'xml',
                 '-c', 'config.json'
-            ], {});       
+            ], {});
 
             expect(options.args).toEqual({
                 server: 'localhost',
@@ -48,41 +57,43 @@ describe('Options', function() {
                 format: 'xml',
                 config: 'config.json'
             });
-        });    
-        
+        });
+
         it('throws if config does not exist', function() {
             fs.existsSync = jasmine.createSpy().andReturn(false);
-            
+
             var args = [
                 'node.exe', 'test.js',
                 '-c', 'config.json'
             ];
-            
+
             var err = new Error("config file 'config.json' does not exist.");
-            expect(options.init.bind(options, args, {})).toThrow(err);               
+            expect(options.init.bind(options, args, {})).toThrow(err);
         });
     });
 
     describe('getConnectionInfo', function() {
+        setup();
+
         it('defaults the config file name to mssql-conf.json', function () {
             path.resolve = jasmine.createSpy().andReturn('mssql-conf.json');
             fs.existsSync = jasmine.createSpy().andReturn(true);
-            
+
             options.getConnectionInfo();
 
             expect(fs.existsSync).toHaveBeenCalledWith('mssql-conf.json');
         });
-        
+
         it('defaults the user and server name', function () {
             path.resolve = jasmine.createSpy().andReturn('mssql-conf.json');
             fs.existsSync = jasmine.createSpy().andReturn(true);
-            
+
             var info = options.getConnectionInfo();
 
             expect(info.server).toEqual('localhost');
             expect(info.user).toEqual('sa');
         });
-        
+
         it('creates the config object', function () {
             path.resolve = jasmine.createSpy().andReturn('test-conf.json');
             fs.existsSync = jasmine.createSpy().andReturn(true);
@@ -97,10 +108,10 @@ describe('Options', function() {
                 '-d', 'catalog',
                 '-q', '.tables',
                 '-v', '7_3',
-                '-e', 
+                '-e',
                 '-f', 'json',
                 '-c', 'test-conf.json'
-            ], {});                               
+            ], {});
 
             var info = options.getConnectionInfo();
 
@@ -114,6 +125,35 @@ describe('Options', function() {
                 options: {
                     tdsVersion: '7_3',
                     encrypt: true
+                }
+            });
+        });
+
+        it('args override config', function () {
+            path.resolve = jasmine.createSpy().andReturn('test-conf.json');
+            fs.existsSync = jasmine.createSpy().andReturn(true);
+
+            config.user = 'theuser';
+            config.pass = 'thepass';
+            config.server = 'example2.com';
+
+            options.init([
+                'node.exe', 'test.js',
+                '-s', 'example.com',
+            ], {});
+
+            var info = options.getConnectionInfo();
+
+            expect(info).toEqual({
+                user: 'theuser',
+                password: 'thepass',
+                server: 'example.com',
+                database: undefined,
+                port: undefined,
+                timeout: undefined,
+                options: {
+                    tdsVersion: undefined,
+                    encrypt: false
                 }
             });
         });
