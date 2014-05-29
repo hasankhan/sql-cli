@@ -3,13 +3,17 @@ var proxyquire =  require('proxyquire').noPreserveCache();
 describe('DbService', function() {
     var mssql, service;
 
-    beforeEach(function() {
+    function setup() {
         mssql = {};
         var DbService = proxyquire('../lib/dbservice', { 'mssql': mssql });
-        service = new DbService();
-    });
+        service = new DbService();        
+    }
 
     describe('connect', function() {
+        beforeEach(function() {
+           setup(); 
+        });
+        
         it('connects to sql on connect', function(done) {
             mssql.connect = function (config, callback) { callback(); };
 
@@ -20,6 +24,9 @@ describe('DbService', function() {
     });
 
     describe('query', function() {
+        beforeEach(function() {
+           setup(); 
+        });
 
         it('formats and concats the args', function(done) {
             var Request = mssql.Request = function(){};

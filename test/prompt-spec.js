@@ -1,31 +1,31 @@
 var proxyquire =  require('proxyquire').noPreserveCache();
 
-describe('Options', function() {
+describe('Prompt', function() {
     var prompt, rl;
 
     function setup() {
-        beforeEach(function() {
-            rl = {
-                setPrompt: jasmine.createSpy(),
-                on: jasmine.createSpy()
-            };
+        rl = {
+            setPrompt: jasmine.createSpy(),
+            on: jasmine.createSpy()
+        };
 
-            var readline = {
-                '@noCallThru': true
-            };
+        var readline = {
+            '@noCallThru': true
+        };
 
-            readline.createInterface = jasmine.createSpy().andReturn(rl)
+        readline.createInterface = jasmine.createSpy().andReturn(rl)
 
-            var Prompt = proxyquire('../lib/prompt', {
-                'readline': readline
-            });
-
-            prompt = new Prompt();
+        var Prompt = proxyquire('../lib/prompt', {
+            'readline': readline
         });
+
+        prompt = new Prompt();
     }
 
     describe('ctor', function() {
-        setup();
+        beforeEach(function() {
+            setup();
+        });
 
         it('sets prompt to mssql', function() {
             expect(rl.setPrompt).toHaveBeenCalledWith('mssql> ');
@@ -34,7 +34,9 @@ describe('Options', function() {
     });
 
     describe('next', function() {
-        setup();
+        beforeEach(function() {
+            setup();
+        });
 
         it('fires close event if exit is set', function (done) {
             var code = -123;

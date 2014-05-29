@@ -6,25 +6,25 @@ describe('Options', function() {
     var fs, path, options, config;
 
     function setup() {
-        beforeEach(function() {
-            // remove commander from require cache
-            utils.unloadModule('commander');
-            
-            fs = {};
-            path = {};
-            config = { '@noCallThru': true };
-            var Options = proxyquire('../lib/options', {
-                'fs': fs,
-                'path': path,
-                'mssql-conf.json': config,
-                'test-conf.json': config
-            });
-            options = new Options();
+        // remove commander from require cache
+        utils.unloadModule('commander');
+        
+        fs = {};
+        path = {};
+        config = { '@noCallThru': true };
+        var Options = proxyquire('../lib/options', {
+            'fs': fs,
+            'path': path,
+            'mssql-conf.json': config,
+            'test-conf.json': config
         });
+        options = new Options();
     }
 
     describe('init', function() {
-        setup();
+        beforeEach(function() {
+           setup(); 
+        });
 
         it('parses and copies args', function() {
             fs.existsSync = jasmine.createSpy().andReturn(true);
@@ -73,7 +73,9 @@ describe('Options', function() {
     });
 
     describe('getConnectionInfo', function() {
-        setup();
+        beforeEach(function() {
+           setup(); 
+        });
 
         it('defaults the config file name to mssql-conf.json', function () {
             path.resolve = jasmine.createSpy().andReturn('mssql-conf.json');
