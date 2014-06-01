@@ -4,7 +4,7 @@ var proxyquire =  require('proxyquire').noPreserveCache(),
     utils = require('./utils');
 
 describe('SqlCli', function() {
-    var prompt, dbservice, options, commands, resultWriter, messages, exit, cli;
+    var prompt, dbservice, options, invoker, resultWriter, messages, exit, cli;
 
     function setup() {
         prompt = {
@@ -12,7 +12,7 @@ describe('SqlCli', function() {
         };
         dbservice = {};
         options = {};
-        commands = {};
+        invoker = { };
         resultWriter = {};
         messages = {};
         exit = jasmine.createSpy();
@@ -21,12 +21,17 @@ describe('SqlCli', function() {
             './prompt': jasmine.createSpy().andReturn(prompt),
             './dbservice': jasmine.createSpy().andReturn(dbservice),
             './options': jasmine.createSpy().andReturn(options),
-            './commands': commands,
+            './commands': { Invoker: jasmine.createSpy().andReturn(invoker) },
             './resultwriter': resultWriter,
             './messages': jasmine.createSpy().andReturn(messages),
             '../external/exit': exit
         });
         cli = new SqlCli();        
+        
+        options.init = jasmine.createSpy();
+        options.getConnectionInfo = jasmine.createSpy().andReturn({});            
+        options.args = {};
+        messages.connecting = jasmine.createSpy();        
     }
 
     describe('run', function() {
@@ -44,10 +49,33 @@ describe('SqlCli', function() {
             testInteractiveMode(false);
         });
         
-        function testInteractiveMode(expectedValue) {
-            options.init = jasmine.createSpy();
-            options.getConnectionInfo = jasmine.createSpy().andReturn({});            
-            messages.connecting = jasmine.createSpy();
+        it('exits on connection error', function(done) {
+            var err = new Error();
+            dbservice.connect = jasmine.createSpy().andReturn(Q.reject(err));
+            messages.connectionerror = jasmine.createSpy();
+            
+            exit.andCallFake(function(code) {
+                expect(code).toEqual(-1);
+                expect(messages.connectionerror).toHaveBeenCalledWith(err);
+                done();
+            });
+            
+            cli.run([], {});                       
+        });
+        
+        it('runs the command if specified in query argument', function(done) {
+            var command = '.tables';
+            options.args = { query: command };
+            dbservice.connect = jasmine.createSpy().andReturn(Q());
+            invoker.run = function(line) {
+                expect(line).toEqual(command);
+                done();
+            };
+            
+            cli.run([], {});                                  
+        });
+        
+        function testInteractiveMode(expectedValue) {            
             dbservice.connect = jasmine.createSpy().andReturn(Q());
             
             cli.run([], {});
