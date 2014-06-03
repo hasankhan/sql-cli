@@ -74,7 +74,36 @@ describe('SqlCli', function() {
             
             cli.run([], {});                                  
         });
-        
+
+        it('does not exit if command returns an error', function(done) {
+            options.args = {};            
+            dbservice.connect = jasmine.createSpy().andReturn(Q());
+            var err = new Error();
+            var command = '.tables';                
+            invoker.run = jasmine.createSpy().andReturn(Q.reject(err));
+            messages.connected = jasmine.createSpy();
+            messages.welcome = jasmine.createSpy();
+            messages.error = jasmine.createSpy();
+            var lineCallback;
+
+            var nextFuncs = [function(code) {                
+                lineCallback(command);                
+                expect(invoker.run).toHaveBeenCalledWith(command);
+            }, function(code) {
+                expect(messages.error).toHaveBeenCalledWith(err);
+                expect(code).toEqual(-1);
+                done();
+            }];
+
+            prompt.next = jasmine.createSpy().andCallFake(function(code) {   
+                var impl = nextFuncs.shift();
+                impl(code);
+            });
+
+            cli.run([], {});            
+            lineCallback = prompt.on.argsForCall[0][1];            
+        });
+
         function testInteractiveMode(expectedValue) {            
             dbservice.connect = jasmine.createSpy().andReturn(Q());
             
