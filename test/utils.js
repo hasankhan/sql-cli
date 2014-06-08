@@ -14,4 +14,12 @@
                 }
               });
     };
+
+    // normalizes and compares two strings for equality
+    utils.stringEqual = function(first, second) {
+        var pattern = /[\s\r\n\t]/g;
+        var normalizedFirst = first.replace(pattern, '');
+        var normalizedSecond = second.replace(pattern, '');
+        expect(normalizedFirst).toEqual(normalizedSecond);
+    };
 })(module.exports = {});
