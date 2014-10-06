@@ -61,6 +61,7 @@ command         description
 .tables         Lists all the tables
 .databases      Lists all the databases
 .read FILENAME  Execute commands in a file
+.run FILENAME   Execute file contents as single command
 .schema TABLE   Shows the schema of a table
 .indexes TABLE  Lists all the indexes of a table
 .analyze        Analyzes the database for missing indexes.

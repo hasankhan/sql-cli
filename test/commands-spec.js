@@ -30,7 +30,8 @@ describe('Invoker', function() {
             expect(_.findWhere(items, { command: '.help', description: 'Shows this message' })).toBeDefined();
             expect(_.findWhere(items, { command: '.tables', description: 'Lists all the tables' })).toBeDefined();
             expect(_.findWhere(items, { command: '.databases', description: 'Lists all the databases' })).toBeDefined();
-            expect(_.findWhere(items, { command: '.read FILENAME', description: 'Execute commands in a file' })).toBeDefined();
+            expect(_.findWhere(items, { command: '.read FILENAME', description: 'Execute newline-separated commands in a file' })).toBeDefined();
+            expect(_.findWhere(items, { command: '.run FILENAME', description: 'Execute semicolon-separated commands in a file' })).toBeDefined();
             expect(_.findWhere(items, { command: '.schema TABLE', description: 'Shows the schema of a table' })).toBeDefined();
             expect(_.findWhere(items, { command: '.indexes TABLE', description: 'Lists all the indexes of a table' })).toBeDefined();
             expect(_.findWhere(items, { command: '.analyze', description: 'Analyzes the database for missing indexes.' })).toBeDefined();
