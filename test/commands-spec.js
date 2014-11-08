@@ -12,7 +12,7 @@ describe('Invoker', function() {
             on: jasmine.createSpy()
         };
         db = {
-            query: jasmine.createSpy().andReturn(Q())
+            query: jasmine.createSpy().andReturn(Q([]))
         };
         writer = {
             write: jasmine.createSpy()
@@ -31,6 +31,7 @@ describe('Invoker', function() {
             expect(_.findWhere(items, { command: '.tables', description: 'Lists all the tables' })).toBeDefined();
             expect(_.findWhere(items, { command: '.databases', description: 'Lists all the databases' })).toBeDefined();
             expect(_.findWhere(items, { command: '.read FILENAME', description: 'Execute commands in a file' })).toBeDefined();
+            expect(_.findWhere(items, { command: '.run FILENAME', description: 'Execute the file as a sql script' })).toBeDefined();
             expect(_.findWhere(items, { command: '.schema TABLE', description: 'Shows the schema of a table' })).toBeDefined();
             expect(_.findWhere(items, { command: '.indexes TABLE', description: 'Lists all the indexes of a table' })).toBeDefined();
             expect(_.findWhere(items, { command: '.analyze', description: 'Analyzes the database for missing indexes.' })).toBeDefined();
@@ -52,7 +53,7 @@ describe('Invoker', function() {
         expect(db.query).toHaveBeenCalledWith(Queries.listDatabasesSql);
     });
 
-    it('.read runs the queries in file', function(done) {
+    it('.read runs the commands in file', function(done) {
         messages.echo = jasmine.createSpy();
 
         invoker.run('.read test');
@@ -67,6 +68,31 @@ describe('Invoker', function() {
         });
 
         lineCallback('.tables');
+    });
+
+     it('.run runs the queries in file', function(done) {
+        messages.echo = jasmine.createSpy();
+
+        invoker.run('.run test');
+
+        expect(lineByLine.on).toHaveBeenCalledWith('line', jasmine.any(Function));
+
+        lineCallback = _.find(lineByLine.on.argsForCall, function(args) { return args[0] == 'line'; })[1];
+        endCallback = _.find(lineByLine.on.argsForCall, function(args) { return args[0] == 'end'; })[1];
+
+        db.query.andCallFake(function(query) {
+            var sql = 'SELECT *\r\nFROM test';
+            
+            expect(messages.echo).toHaveBeenCalledWith(sql);
+            expect(query).toEqual(sql);
+
+            done();
+        });
+
+        lineCallback('SELECT *');
+        lineCallback('FROM test');
+        lineCallback('GO');
+        endCallback();
     });
 
     it('.schema runs the getSchema query', function() {

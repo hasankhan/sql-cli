@@ -50,11 +50,13 @@ describe('ResultWriter', function() {
     });
 
     describe('JsonWriter', function() {
-        var writer;
+        var writer, output = '';
 
         beforeEach(function(){
             writer = new ResultWriter.JsonWriter();
-            spyOn(console, 'log');
+            spyOn(console, 'log').andCallFake(function(text){
+                output += text;
+            });
         });
 
         afterEach(function() {
@@ -68,16 +70,20 @@ describe('ResultWriter', function() {
             }];
 
             var json =  M(function(){ /***
+            [
             [{
                 "title": "abc",
                 "count": 54
             }]
+            ]
             ***/});
 
+            writer.start();
             writer.write(result);
+            writer.end();
 
             expect(console.log).toHaveBeenCalled();
-            utils.stringEqual(console.log.argsForCall[0][0], json);
+            utils.stringEqual(output, json);
         });
     });
 
@@ -103,15 +109,19 @@ describe('ResultWriter', function() {
 
             var xml =  M(function(){ /***
             <?xml version="1.0"?>
-            <result>
-                <row>
-                    <title>abc</title>
-                    <count>54</count>
-                </row>
-            </result>
+            <results>
+               <result>
+                   <row>
+                     <title>abc</title>
+                     <count>54</count>
+                   </row>
+               </result>
+            </results>
             ***/});
 
+            writer.start();
             writer.write(result);
+            writer.end();
 
             expect(console.log).toHaveBeenCalled();
             utils.stringEqual(output, xml);
@@ -144,7 +154,9 @@ describe('ResultWriter', function() {
             abc     54
             ***/});
 
+            writer.start();
             writer.write(result);
+            writer.end();
 
             expect(console.log).toHaveBeenCalled();
             utils.stringEqual(output, table);
@@ -165,7 +177,9 @@ describe('ResultWriter', function() {
                 count: 54
             }];
 
+            writer.start();
             writer.write(result);
+            writer.end();
 
             expect(csvWriter.writeRecord).toHaveBeenCalledWith(['title', 'count']);
             expect(csvWriter.writeRecord).toHaveBeenCalledWith(['abc', 54]);
