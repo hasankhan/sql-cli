@@ -75,6 +75,34 @@ describe('SqlCli', function() {
             cli.run([], {});                                  
         });
 
+        it('combines commands if ends with slash', function(done) {
+            options.args = {};            
+            dbservice.connect = jasmine.createSpy().andReturn(Q());
+            var commands = ['select 1\\', 'from dual'];                
+            invoker.run = jasmine.createSpy().andReturn(Q());
+            messages.connected = jasmine.createSpy();
+            messages.welcome = jasmine.createSpy();
+
+            var lineCallback;
+
+            var nextFuncs = [function(code) {                
+                lineCallback(commands[0]);                
+            }, function(code) {
+                lineCallback(commands[1]);                
+                expect(invoker.run).toHaveBeenCalledWith('select 1\r\nfrom dual');
+                expect(invoker.run.callCount).toEqual(1);
+                done();
+            }];
+
+            prompt.next = jasmine.createSpy().andCallFake(function(code) {   
+                var impl = nextFuncs.shift();
+                impl(code);
+            });
+
+            cli.run([], {});            
+            lineCallback = prompt.on.argsForCall[0][1];            
+        });
+
         it('does not exit if command returns an error', function(done) {
             options.args = {};            
             dbservice.connect = jasmine.createSpy().andReturn(Q());

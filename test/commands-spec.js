@@ -62,12 +62,13 @@ describe('Invoker', function() {
 
         lineCallback = _.find(lineByLine.on.argsForCall, function(args) { return args[0] == 'line'; })[1];
         db.query.andCallFake(function(query) {
-            expect(messages.echo).toHaveBeenCalledWith('.tables');
-            expect(query).toEqual(Queries.listTablesSql);
+            expect(messages.echo).toHaveBeenCalledWith('SELECT *\r\nFROM test');
+            expect(query).toEqual('SELECT *\r\nFROM test');
             done();
         });
 
-        lineCallback('.tables');
+        lineCallback('SELECT *\\');
+        lineCallback('FROM test');
     });
 
      it('.run runs the queries in file', function(done) {
@@ -82,7 +83,7 @@ describe('Invoker', function() {
 
         db.query.andCallFake(function(query) {
             var sql = 'SELECT *\r\nFROM test';
-            
+
             expect(messages.echo).toHaveBeenCalledWith(sql);
             expect(query).toEqual(sql);
 
