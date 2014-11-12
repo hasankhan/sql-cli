@@ -32,8 +32,8 @@
     "underscore.string": "~2.3.3",
     "q": "~1.0.1",
     "ya-csv": "~0.9.3",
-    "line-by-line": "^0.1.1",
-    "mstring": "^0.1.2"
+    "line-by-line": "~0.1.1",
+    "mstring": "~0.1.2"
   },
   "homepage": "https://github.com/hasankhan/sql-cli",
   "repository": {
@@ -55,8 +55,8 @@
     "azure-cli": "./lib/azure-cli-sqldb.js"
   },
   "devDependencies": {
-    "jasmine-node": "^1.14.3",
-    "jshint": "^2.5.1",
-    "proxyquire": "^1.0.0"
+    "jasmine-node": "~1.14.3",
+    "jshint": "~2.5.1",
+    "proxyquire": "~1.0.0"
   }
 }
