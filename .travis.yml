@@ -4,3 +4,5 @@ node_js:
 
 notifications:
     email: "slashdot10@gmail.com"
+    on_success: change
+    on_failure: always
