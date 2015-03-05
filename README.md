@@ -2,7 +2,7 @@
 
 Cross platform command line interface for SQL Server
 
-**NOTE: All Pull-Requests must be made into the `development` branch.**
+**NOTE: All Pull-Requests must be made into the `dev` branch.**
 
 [![Build Status](https://travis-ci.org/hasankhan/sql-cli.svg)](https://travis-ci.org/hasankhan/sql-cli)
 
