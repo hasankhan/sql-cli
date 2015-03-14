@@ -45,12 +45,12 @@ describe('Invoker', function() {
 
     it('.tables runs the listTables query', function() {
         invoker.run('.tables');
-        expect(db.query).toHaveBeenCalledWith(Queries.listTablesSql);
+        expect(db.query).toHaveBeenCalledWith(Queries.listTablesSql());
     });
 
     it('.databases runs the listDatabases query', function() {
         invoker.run('.databases');
-        expect(db.query).toHaveBeenCalledWith(Queries.listDatabasesSql);
+        expect(db.query).toHaveBeenCalledWith(Queries.listDatabasesSql());
     });
 
     it('.read runs the commands in file', function(done) {
@@ -98,17 +98,17 @@ describe('Invoker', function() {
 
     it('.schema runs the getSchema query', function() {
         invoker.run('.schema test');
-        expect(db.query).toHaveBeenCalledWith(Queries.getSchemaSql, ['test']);
+        expect(db.query).toHaveBeenCalledWith(Queries.getSchemaSql('test'));
     });
 
     it('.indexes runs the listIndexes query', function() {
         invoker.run('.indexes test');
-        expect(db.query).toHaveBeenCalledWith(Queries.listIndexesSql, ['test']);
+        expect(db.query).toHaveBeenCalledWith(Queries.listIndexesSql('test'));
     });
 
     it('.analyze runs the listMissingIndexes query', function() {
         invoker.run('.analyze');
-        expect(db.query).toHaveBeenCalledWith(Queries.listMissingIndexesSql);
+        expect(db.query).toHaveBeenCalledWith(Queries.listMissingIndexesSql());
     });
 
     it('.quit exits the app', function() {
