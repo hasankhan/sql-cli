@@ -70,12 +70,10 @@ describe('ResultWriter', function() {
             }];
 
             var json =  M(function(){ /***
-            [
             [{
                 "title": "abc",
                 "count": 54
             }]
-            ]
             ***/});
 
             writer.start();
