@@ -19,7 +19,7 @@ describe('SqlCli', function() {
 
         var SqlCli = proxyquire('../lib/cli', {
             './prompt': jasmine.createSpy().andReturn(prompt),
-            './dbservice': jasmine.createSpy().andReturn(dbservice),
+            './mssqldb': jasmine.createSpy().andReturn(dbservice),
             './options': jasmine.createSpy().andReturn(options),
             './commands': { Invoker: jasmine.createSpy().andReturn(invoker) },
             './resultwriter': resultWriter,
@@ -50,7 +50,7 @@ describe('SqlCli', function() {
         });
         
         it('exits on connection error', function(done) {
-            var err = new Error();
+            var err = jasmine.any(Object);
             dbservice.connect = jasmine.createSpy().andReturn(Q.reject(err));
             messages.connectionerror = jasmine.createSpy();
             

@@ -25,15 +25,15 @@
     }
   ],
   "dependencies": {
-    "mssql": "0.5.3",
-    "underscore": "~1.4.4",
     "commander": "~1.0.4",
     "easy-table": "0.3.0",
-    "underscore.string": "~2.3.3",
-    "q": "~1.0.1",
-    "ya-csv": "~0.9.3",
     "line-by-line": "~0.1.1",
-    "mstring": "~0.1.2"
+    "mssql": "0.5.3",
+    "mstring": "~0.1.2",
+    "q": "~1.0.1",
+    "underscore": "~1.4.4",
+    "underscore.string": "~2.3.3",
+    "ya-csv": "~0.9.3"
   },
   "homepage": "https://github.com/hasankhan/sql-cli",
   "repository": {

@@ -1,12 +1,12 @@
 var proxyquire =  require('proxyquire').noPreserveCache();
 
-describe('DbService', function() {
+describe('MSSQLDbService', function() {
     var mssql, service;
 
     function setup() {
         mssql = {};
-        var DbService = proxyquire('../lib/dbservice', { 'mssql': mssql });
-        service = new DbService();        
+        var MSSQLDbService = proxyquire('../lib/mssqldb', { 'mssql': mssql });
+        service = new MSSQLDbService();        
     }
 
     describe('connect', function() {
