@@ -100,16 +100,3 @@ To exit the cli use the '.quit' command
 ```bash
 mssql> .quit
 ```
-## Integration with Azure CLI
-
-This module also serves as an extension to Azure CLI tool that allows you to directly connect to database of your Mobile Service. 
-
-To connect to your Mobile Service database you can use the 'connect' command as follows:
-```bash
-azure mobile sqldb connect <mobileservicename> <username> <password>
-```
-
-To run a query against your Mobile Service database you can use the 'query' command as follows:
-```bash
-azure mobile sqldb query <mobileservicename> <username> <password>
-```

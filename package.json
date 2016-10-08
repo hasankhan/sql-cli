@@ -51,9 +51,6 @@
   "bin": {
     "mssql": "./bin/mssql"
   },
-  "plugins": {
-    "azure-cli": "./lib/azure-cli-sqldb.js"
-  },
   "devDependencies": {
     "jasmine-node": "~1.14.3",
     "jshint": "~2.5.1",
