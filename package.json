@@ -14,9 +14,9 @@
     "sql"
   ],
   "main": "./lib/cli.js",
-  "preferGlobal": "true",
+  "preferGlobal": true,
   "engines": {
-    "node": ">= 0.8"
+    "node": ">= 4.6"
   },
   "licenses": [
     {
@@ -25,15 +25,16 @@
     }
   ],
   "dependencies": {
-    "commander": "~1.0.4",
-    "easy-table": "0.3.0",
-    "line-by-line": "~0.1.1",
-    "mssql": "0.5.3",
-    "mstring": "~0.1.2",
-    "q": "~1.0.1",
-    "underscore": "~1.4.4",
-    "underscore.string": "~2.3.3",
-    "ya-csv": "~0.9.3"
+    "commander": "^2.9.0",
+    "easy-table": "^1.0.0",
+    "line-by-line": "^0.1.5",
+    "mssql": "^3.3.0",
+    "mstring": "^0.1.2",
+    "q": "^2.0.3",
+    "sprintf-js": "^1.0.3",
+    "underscore": "^1.8.3",
+    "underscore.string": "^3.3.4",
+    "ya-csv": "^0.9.4"
   },
   "homepage": "https://github.com/hasankhan/sql-cli",
   "repository": {

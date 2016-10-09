@@ -19,7 +19,7 @@ describe('MSSQLDbService', function() {
 
             service.connect()
                     .then(done)
-                    .fail(done);
+                    .catch(done);
         });
     });
 
@@ -43,7 +43,7 @@ describe('MSSQLDbService', function() {
                         expect(Request.prototype.on).toHaveBeenCalledWith('error', jasmine.any(Function));
                         expect(Request.prototype.query).toHaveBeenCalledWith('there are 123 tests', jasmine.any(Function));
                         done();
-                   }).fail(done);
+                   }).catch(done);
         });
     });
 });
