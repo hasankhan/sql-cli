@@ -13,7 +13,7 @@ describe('SqlCli', function() {
         dbservice = {};
         options = {};
         invoker = { };
-        resultWriter = {};
+        resultWriter = { create: jasmine.createSpy() };
         messages = {};
         exit = jasmine.createSpy();
 
