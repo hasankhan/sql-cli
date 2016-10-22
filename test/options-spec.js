@@ -131,6 +131,10 @@ describe('Options', function() {
                     port: '5400',
                     tdsVersion: '7_3',
                     encrypt: true
+                },
+                pool: {
+                    max: 1,
+                    min: 1
                 }
             });
         });
@@ -160,6 +164,10 @@ describe('Options', function() {
                 options: {
                     tdsVersion: undefined,
                     encrypt: false
+                },
+                pool: {
+                    max: 1,
+                    min: 1
                 }
             });
         });
