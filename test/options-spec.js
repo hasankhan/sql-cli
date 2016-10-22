@@ -30,12 +30,13 @@ describe('Options', function() {
             fs.existsSync = jasmine.createSpy().andReturn(true);
 
             options.init([
-                'node.exe', 'test.js',
+                'node.exe', 'mssql.js',
                 '-s', 'localhost',
                 '-u', 'sa',
                 '-p', 'password',
                 '-o', '1234',
                 '-t', '5500',
+                '-T', '7000',
                 '-d', 'test',
                 '-q', '.tables',
                 '-v', '7_2',
@@ -50,6 +51,7 @@ describe('Options', function() {
                 pass: 'password',
                 port: '1234',
                 timeout: '5500',
+                requestTimeout: '7000',
                 database: 'test',
                 query: '.tables',
                 tdsVersion: '7_2',
@@ -101,12 +103,13 @@ describe('Options', function() {
             fs.existsSync = jasmine.createSpy().andReturn(true);
 
             options.init([
-                'node.exe', 'test.js',
+                'node.exe', 'mssql.js',
                 '-s', 'example.com',
                 '-u', 'theuser',
                 '-p', 'thepass',
                 '-o', '5400',
                 '-t', '1000',
+                '-T', '2000',
                 '-d', 'catalog',
                 '-q', '.tables',
                 '-v', '7_3',
@@ -122,9 +125,10 @@ describe('Options', function() {
                 password: 'thepass',
                 server: 'example.com',
                 database: 'catalog',
-                port: '5400',
                 timeout: '1000',
+                requestTimeout: '2000',
                 options: {
+                    port: '5400',
                     tdsVersion: '7_3',
                     encrypt: true
                 }

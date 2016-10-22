@@ -1,10 +1,21 @@
 var proxyquire =  require('proxyquire').noPreserveCache(),
     Q = require('q'),
     _ = require('underscore'),
-    Queries = require('../lib/queries');
+    Queries = require('../lib/commands/queries'),
+    Invoker = require('../lib/commands').Invoker;
 
 describe('Invoker', function() {
     var lineByLine, exit, invoker, db, messages, writer;
+
+    function mockCommands(invoker, mocks, db, names) {
+        names.forEach(function(name){
+            var CommandType = proxyquire('../lib/commands/' + name, mocks);
+            var command = new CommandType(db);
+            invoker.commands = _.map(invoker.commands, function(cmd) {
+                return (cmd.constructor.name == command.constructor.name) ? command : cmd; 
+            });
+        });        
+    }
 
     beforeEach(function() {
         messages = {};
@@ -18,11 +29,14 @@ describe('Invoker', function() {
             write: jasmine.createSpy()
         };
         exit = jasmine.createSpy();
-        var Invoker = proxyquire('../lib/commands', {
+        
+        var mocks = {
             'line-by-line': jasmine.createSpy().andReturn(lineByLine),
-            '../external/exit': exit
-        }).Invoker;
+            '../../external/exit': exit
+        };
+
         invoker = new Invoker(db, messages, writer);
+        mockCommands(invoker, mocks, db, ['read', 'run', 'quit']);
     });
 
     it('.help returns commands reference', function(done) {
