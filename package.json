@@ -27,7 +27,6 @@
   "dependencies": {
     "commander": "^2.9.0",
     "easy-table": "^1.0.0",
-    "line-by-line": "^0.1.5",
     "mssql": "^3.3.0",
     "mstring": "^0.1.2",
     "q": "^2.0.3",

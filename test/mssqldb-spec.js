@@ -1,49 +1,60 @@
-var proxyquire =  require('proxyquire').noPreserveCache();
+var proxyquire = require('proxyquire').noPreserveCache(),
+    _ = require('underscore'),
+    Q = require('q');
 
-describe('MSSQLDbService', function() {
+describe('MSSQLDbService', function () {
     var mssql, service;
 
     function setup() {
         mssql = {};
         var MSSQLDbService = proxyquire('../lib/mssqldb', { 'mssql': mssql });
-        service = new MSSQLDbService();        
+        service = new MSSQLDbService();
     }
 
-    describe('connect', function() {
-        beforeEach(function() {
-           setup(); 
+    describe('connect', function () {
+        beforeEach(function () {
+            setup();
         });
-        
-        it('connects to sql on connect', function(done) {
+
+        it('connects to sql on connect', function (done) {
             mssql.connect = function (config, callback) { callback(); };
 
             service.connect()
-                    .then(done)
-                    .catch(done);
+                .then(done)
+                .catch(done);
         });
     });
 
-    describe('query', function() {
-        beforeEach(function() {
-           setup(); 
+    describe('query', function () {
+        beforeEach(function () {
+            setup();
         });
 
-        it('formats and concats the args', function(done) {
-            var Request = mssql.Request = function(){};
+        it('executes the query', function (done) {
+            var Request = mssql.Request = function () { };
             Request.prototype.on = jasmine.createSpy();
-            Request.prototype.query = function (query, callback) { callback ( null, [{colA: 'theValue'}]); };
-            spyOn(Request.prototype, 'query').andCallThrough();
+            Request.prototype.query = jasmine.createSpy();
 
-            service.query('%s are %d tests', ['there', 123])
-                   .then(function(results){
-                        expect(results.length).toBe(1);
-                        expect(results[0].colA).toBe('theValue');
-                        expect(Request.prototype.on).toHaveBeenCalledWith('done', jasmine.any(Function));                    
-                        expect(Request.prototype.on).toHaveBeenCalledWith('resultset', jasmine.any(Function));                        
-                        expect(Request.prototype.on).toHaveBeenCalledWith('error', jasmine.any(Function));
-                        expect(Request.prototype.query).toHaveBeenCalledWith('there are 123 tests', jasmine.any(Function));
-                        done();
-                   }).catch(done);
+            service.query('there are 123 tests')
+                .then(function (results) {
+                    expect(results.length).toBe(1);
+                    expect(results[0][0].colA).toBe('theValue');
+                    expect(Request.prototype.on).toHaveBeenCalledWith('done', jasmine.any(Function));
+                    expect(Request.prototype.on).toHaveBeenCalledWith('recordset', jasmine.any(Function));
+                    expect(Request.prototype.on).toHaveBeenCalledWith('row', jasmine.any(Function));
+                    expect(Request.prototype.on).toHaveBeenCalledWith('error', jasmine.any(Function));
+                    expect(Request.prototype.query).toHaveBeenCalledWith('there are 123 tests');
+                    done();
+                }).catch(done);
+
+            var recordsetCallback = _.find(Request.prototype.on.argsForCall, function (args) { return args[0] == 'recordset'; })[1];
+            recordsetCallback();
+
+            var rowCallback = _.find(Request.prototype.on.argsForCall, function (args) { return args[0] == 'row'; })[1];
+            rowCallback({colA: 'theValue'});
+
+            var doneCallback = _.find(Request.prototype.on.argsForCall, function (args) { return args[0] == 'done'; })[1];
+            doneCallback();
         });
     });
 });
