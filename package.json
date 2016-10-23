@@ -25,8 +25,10 @@
     }
   ],
   "dependencies": {
+    "chardet": "^0.1.0",
     "commander": "^2.9.0",
     "easy-table": "^1.0.0",
+    "iconv-lite": "^0.4.13",
     "mssql": "^3.3.0",
     "mstring": "^0.1.2",
     "q": "^2.0.3",
