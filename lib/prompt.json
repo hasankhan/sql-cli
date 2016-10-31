@@ -1,0 +1,5 @@
+{
+    "prompt": "mssql> ",
+    "keywords": [ "select", "top", "from", "where", "order by"
+    ]
+}
