@@ -1,11 +1,11 @@
-(function () {
+(() => {
     "use strict";
 
     var proxyquire = require('proxyquire').noPreserveCache(),
         _ = require('underscore'),
         Q = require('q');
 
-    describe('MSSQLDbService', function () {
+    describe('MSSQLDbService', () => {
         var mssql, service;
 
         function setup() {
@@ -14,12 +14,12 @@
             service = new MSSQLDbService();
         }
 
-        describe('connect', function () {
-            beforeEach(function () {
+        describe('connect', () => {
+            beforeEach(() => {
                 setup();
             });
 
-            it('connects to sql on connect', function (done) {
+            it('connects to sql on connect', done => {
                 mssql.Connection = class {
                     connect(config) {
                         return new Q();
@@ -32,13 +32,13 @@
             });
         });
 
-        describe('query', function () {
-            beforeEach(function () {
+        describe('query', () => {
+            beforeEach(() => {
                 setup();
             });
 
-            it('executes the query', function (done) {
-                var Request = mssql.Request = function () { };
+            it('executes the query', done => {
+                var Request = mssql.Request = function() { };
                 Request.prototype.on = jasmine.createSpy();
                 Request.prototype.batch = jasmine.createSpy();
 

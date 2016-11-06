@@ -1,6 +1,6 @@
 var proxyquire =  require('proxyquire').noPreserveCache();
 
-describe('Prompt', function() {
+describe('Prompt', () => {
     var prompt, rl;
 
     function setup() {
@@ -22,23 +22,23 @@ describe('Prompt', function() {
         prompt = new Prompt();
     }
 
-    describe('ctor', function() {
-        beforeEach(function() {
+    describe('ctor', () => {
+        beforeEach(() => {
             setup();
         });
 
-        it('sets prompt to mssql', function() {
+        it('sets prompt to mssql', () => {
             expect(rl.setPrompt).toHaveBeenCalledWith('mssql> ');
             expect(rl.on).toHaveBeenCalledWith('line', jasmine.any(Function));
         });
     });
 
-    describe('next', function() {
-        beforeEach(function() {
+    describe('next', () => {
+        beforeEach(() => {
             setup();
         });
 
-        it('fires close event if exit is set', function (done) {
+        it('fires close event if exit is set', done => {
             var code = -123;
 
             prompt.exit = true;
@@ -50,8 +50,8 @@ describe('Prompt', function() {
             prompt.next(code);
         });
 
-        it('prompts on next', function (done) {
-            rl.prompt = function() {
+        it('prompts on next', done => {
+            rl.prompt = () => {
                 done();
             };
             prompt.next();

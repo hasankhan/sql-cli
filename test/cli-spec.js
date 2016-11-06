@@ -3,7 +3,7 @@ var proxyquire =  require('proxyquire').noPreserveCache(),
     _ = require('underscore'),
     utils = require('./utils');
 
-describe('SqlCli', function() {
+describe('SqlCli', () => {
     var prompt, dbservice, options, invoker, resultWriter, messages, exit, cli;
 
     function setup() {
@@ -37,22 +37,22 @@ describe('SqlCli', function() {
         messages.connecting = jasmine.createSpy();        
     }
 
-    describe('run', function() {
-        beforeEach(function() {            
+    describe('run', () => {
+        beforeEach(() => {            
            setup(); 
         });
 
-        it('assumes interactive mode if query is not specified', function() {
+        it('assumes interactive mode if query is not specified', () => {
             options.args = {};
             testInteractiveMode(true);
         });
         
-        it('assumes non-interactive mode if query is specified', function() {
+        it('assumes non-interactive mode if query is specified', () => {
             options.args = { query: '.tables' };
             testInteractiveMode(false);
         });
         
-        it('exits on connection error', function(done) {
+        it('exits on connection error', done => {
             var err = jasmine.any(Object);
             dbservice.connect = jasmine.createSpy().andReturn(Q.reject(err));
             messages.connectionerror = jasmine.createSpy();
@@ -66,7 +66,7 @@ describe('SqlCli', function() {
             cli.run([], {});                       
         });
         
-        it('runs the command if specified in query argument', function(done) {
+        it('runs the command if specified in query argument', done => {
             var command = '.tables';
             options.args = { query: command };
             dbservice.connect = jasmine.createSpy().andReturn(Q());
@@ -78,7 +78,7 @@ describe('SqlCli', function() {
             cli.run([], {});                                  
         });
 
-        it('combines commands if ends with slash', function(done) {
+        it('combines commands if ends with slash', done => {
             options.args = {};            
             dbservice.connect = jasmine.createSpy().andReturn(Q());
             var commands = ['select 1\\', 'from dual'];                
@@ -106,7 +106,7 @@ describe('SqlCli', function() {
             lineCallback = prompt.on.argsForCall[0][1];            
         });
 
-        it('does not exit if command returns an error', function(done) {
+        it('does not exit if command returns an error', done => {
             options.args = {};            
             dbservice.connect = jasmine.createSpy().andReturn(Q());
             var err = new Error();

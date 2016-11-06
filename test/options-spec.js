@@ -2,7 +2,7 @@ var proxyquire =  require('proxyquire').noPreserveCache(),
     _ = require('underscore'),
     utils = require('./utils');
 
-describe('Options', function() {
+describe('Options', () =>{
     var fs, path, options, config;
 
     function setup() {
@@ -21,12 +21,12 @@ describe('Options', function() {
         options = new Options();
     }
 
-    describe('init', function() {
-        beforeEach(function() {
+    describe('init', () =>{
+        beforeEach(() =>{
            setup(); 
         });
 
-        it('parses and copies args', function() {
+        it('parses and copies args', () =>{
             fs.existsSync = jasmine.createSpy().andReturn(true);
 
             options.init([
@@ -61,7 +61,7 @@ describe('Options', function() {
             });
         });
 
-        it('throws if config does not exist', function() {
+        it('throws if config does not exist', () =>{
             fs.existsSync = jasmine.createSpy().andReturn(false);
 
             var args = [
@@ -74,8 +74,8 @@ describe('Options', function() {
         });
     });
 
-    describe('getConnectionInfo', function() {
-        beforeEach(function() {
+    describe('getConnectionInfo', () =>{
+        beforeEach(() =>{
            setup(); 
         });
 

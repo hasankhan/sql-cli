@@ -5,7 +5,7 @@ var proxyquire =  require('proxyquire').noPreserveCache(),
     Utils = require('../lib/commands/utils'),
     Invoker = require('../lib/commands').Invoker;
 
-describe('Invoker', function() {
+describe('Invoker', () => {
     var readline, exit, invoker, db, messages, writer;
 
     function mockCommands(invoker, mocks, db, names) {
@@ -18,7 +18,7 @@ describe('Invoker', function() {
         });        
     }
 
-    beforeEach(function() {
+    beforeEach(() => {
         messages = {};
         readline = {
             on: jasmine.createSpy(),
@@ -61,12 +61,12 @@ describe('Invoker', function() {
         invoker.run('.help');
     });
 
-    it('.tables runs the listTables query', function() {
+    it('.tables runs the listTables query', () => {
         invoker.run('.tables');
         expect(db.query).toHaveBeenCalledWith(Queries.listTablesSql());
     });
 
-    it('.databases runs the listDatabases query', function() {
+    it('.databases runs the listDatabases query', () => {
         invoker.run('.databases');
         expect(db.query).toHaveBeenCalledWith(Queries.listDatabasesSql());
     });
@@ -118,22 +118,22 @@ describe('Invoker', function() {
         endCallback();
     });
 
-    it('.schema runs the getSchema query', function() {
+    it('.schema runs the getSchema query', () => {
         invoker.run('.schema test');
         expect(db.query).toHaveBeenCalledWith(Queries.getSchemaSql('test'));
     });
 
-    it('.indexes runs the listIndexes query', function() {
+    it('.indexes runs the listIndexes query', () => {
         invoker.run('.indexes test');
         expect(db.query).toHaveBeenCalledWith(Queries.listIndexesSql('test'));
     });
 
-    it('.analyze runs the listMissingIndexes query', function() {
+    it('.analyze runs the listMissingIndexes query', () => {
         invoker.run('.analyze');
         expect(db.query).toHaveBeenCalledWith(Queries.listMissingIndexesSql());
     });
 
-    it('.quit exits the app', function() {
+    it('.quit exits the app', () => {
         invoker.run('.quit');
         expect(exit).toHaveBeenCalled();
     });
