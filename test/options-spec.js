@@ -79,7 +79,7 @@ describe('Options', () =>{
            setup(); 
         });
 
-        it('defaults the config file name to mssql-conf.json', function () {
+        it('defaults the config file name to mssql-conf.json', () => {
             path.resolve = jasmine.createSpy().andReturn('mssql-conf.json');
             fs.existsSync = jasmine.createSpy().andReturn(true);
 
@@ -88,7 +88,7 @@ describe('Options', () =>{
             expect(fs.existsSync).toHaveBeenCalledWith('mssql-conf.json');
         });
 
-        it('defaults the user and server name', function () {
+        it('defaults the user and server name', () => {
             path.resolve = jasmine.createSpy().andReturn('mssql-conf.json');
             fs.existsSync = jasmine.createSpy().andReturn(true);
 
@@ -98,7 +98,7 @@ describe('Options', () =>{
             expect(info.user).toEqual('sa');
         });
 
-        it('creates the config object', function () {
+        it('creates the config object', () => {
             path.resolve = jasmine.createSpy().andReturn('test-conf.json');
             fs.existsSync = jasmine.createSpy().andReturn(true);
 
@@ -139,7 +139,7 @@ describe('Options', () =>{
             });
         });
 
-        it('args override config', function () {
+        it('args override config', () => {
             path.resolve = jasmine.createSpy().andReturn('test-conf.json');
             fs.existsSync = jasmine.createSpy().andReturn(true);
 

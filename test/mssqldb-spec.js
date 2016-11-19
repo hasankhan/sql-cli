@@ -38,12 +38,12 @@
             });
 
             it('executes the query', done => {
-                var Request = mssql.Request = function() { };
+                var Request = mssql.Request = class { };
                 Request.prototype.on = jasmine.createSpy();
                 Request.prototype.batch = jasmine.createSpy();
 
                 service.query('there are 123 tests')
-                    .then(function (results) {
+                    .then(results => {
                         expect(results.length).toBe(1);
                         expect(results[0][0].colA).toBe('theValue');
                         expect(Request.prototype.on).toHaveBeenCalledWith('done', jasmine.any(Function));
@@ -54,13 +54,13 @@
                         done();
                     }).catch(done);
 
-                var recordsetCallback = _.find(Request.prototype.on.argsForCall, function (args) { return args[0] == 'recordset'; })[1];
+                var recordsetCallback = _.find(Request.prototype.on.argsForCall, args => { return args[0] == 'recordset'; })[1];
                 recordsetCallback();
 
-                var rowCallback = _.find(Request.prototype.on.argsForCall, function (args) { return args[0] == 'row'; })[1];
+                var rowCallback = _.find(Request.prototype.on.argsForCall, args => { return args[0] == 'row'; })[1];
                 rowCallback({ colA: 'theValue' });
 
-                var doneCallback = _.find(Request.prototype.on.argsForCall, function (args) { return args[0] == 'done'; })[1];
+                var doneCallback = _.find(Request.prototype.on.argsForCall, args => { return args[0] == 'done'; })[1];
                 doneCallback();
             });
         });

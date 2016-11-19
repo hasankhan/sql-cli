@@ -42,7 +42,7 @@ describe('Prompt', () => {
             var code = -123;
 
             prompt.exit = true;
-            prompt.on('end', function(exitCode) {
+            prompt.on('end', exitCode => {
                 expect(exitCode).toEqual(code);
                 done();
             });

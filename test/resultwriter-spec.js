@@ -54,7 +54,7 @@ describe('ResultWriter', () => {
 
         beforeEach(() =>{
             writer = new ResultWriter.JsonWriter();
-            spyOn(console, 'log').andCallFake(function(text){
+            spyOn(console, 'log').andCallFake(text => {
                 output += text;
             });
         });
@@ -90,7 +90,7 @@ describe('ResultWriter', () => {
 
         beforeEach(() =>{
             writer = new ResultWriter.XmlWriter();
-            spyOn(console, 'log').andCallFake(function(text){
+            spyOn(console, 'log').andCallFake(text => {
                 output += text;
             });
         });
@@ -131,7 +131,7 @@ describe('ResultWriter', () => {
 
         beforeEach(() =>{
             writer = new ResultWriter.TableWriter();
-            spyOn(console, 'log').andCallFake(function(text){
+            spyOn(console, 'log').andCallFake(text => {
                 output += text;
             });
         });

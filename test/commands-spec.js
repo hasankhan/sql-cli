@@ -9,10 +9,10 @@ describe('Invoker', () => {
     var readline, exit, invoker, db, messages, writer;
 
     function mockCommands(invoker, mocks, db, names) {
-        names.forEach(function(name){
+        names.forEach(name => {
             var CommandType = proxyquire('../lib/commands/' + name, mocks);
             var command = new CommandType(db);
-            invoker.commands = _.map(invoker.commands, function(cmd) {
+            invoker.commands = _.map(invoker.commands, cmd => {
                 return (cmd.constructor.name == command.constructor.name) ? command : cmd; 
             });
         });        
@@ -43,8 +43,8 @@ describe('Invoker', () => {
         mockCommands(invoker, mocks, db, ['read', 'run', 'quit']);
     });
 
-    it('.help returns commands reference', function(done) {
-        writer.write.andCallFake(function(items) {
+    it('.help returns commands reference', done => {
+        writer.write.andCallFake(items => {
             expect(_.findWhere(items, { command: '.help', description: 'Shows this message' })).toBeDefined();
             expect(_.findWhere(items, { command: '.tables', description: 'Lists all the tables' })).toBeDefined();
             expect(_.findWhere(items, { command: '.databases', description: 'Lists all the databases' })).toBeDefined();
@@ -71,15 +71,15 @@ describe('Invoker', () => {
         expect(db.query).toHaveBeenCalledWith(Queries.listDatabasesSql());
     });
 
-    it('.read runs the commands in file', function(done) {
+    it('.read runs the commands in file', done => {
         messages.echo = jasmine.createSpy();
 
         invoker.run('.read test');
 
         expect(readline.on).toHaveBeenCalledWith('line', jasmine.any(Function));
 
-        lineCallback = _.find(readline.on.argsForCall, function(args) { return args[0] == 'line'; })[1];
-        db.query.andCallFake(function(query) {
+        lineCallback = _.find(readline.on.argsForCall, args => args[0] == 'line')[1];
+        db.query.andCallFake(query => {
             expect(messages.echo).toHaveBeenCalledWith('SELECT *\r\nFROM test');
             expect(query).toEqual('SELECT *\r\nFROM test');
             done();
@@ -91,17 +91,17 @@ describe('Invoker', () => {
         lineCallback('FROM test');
     });
 
-     it('.run runs the queries in file', function(done) {
+     it('.run runs the queries in file', done => {
         messages.echo = jasmine.createSpy();
 
         invoker.run('.run test');
 
         expect(readline.on).toHaveBeenCalledWith('line', jasmine.any(Function));
 
-        lineCallback = _.find(readline.on.argsForCall, function(args) { return args[0] == 'line'; })[1];
-        endCallback = _.find(readline.on.argsForCall, function(args) { return args[0] == 'close'; })[1];
+        lineCallback = _.find(readline.on.argsForCall, args => args[0] == 'line')[1];
+        endCallback = _.find(readline.on.argsForCall, args => args[0] == 'close')[1];
 
-        db.query.andCallFake(function(query) {
+        db.query.andCallFake(query => {
             var sql = 'SELECT *\r\nFROM test';
 
             expect(messages.echo).toHaveBeenCalledWith(sql);

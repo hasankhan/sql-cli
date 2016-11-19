@@ -57,7 +57,7 @@ describe('SqlCli', () => {
             dbservice.connect = jasmine.createSpy().andReturn(Q.reject(err));
             messages.connectionerror = jasmine.createSpy();
             
-            exit.andCallFake(function(code) {
+            exit.andCallFake(code => {
                 expect(code).toEqual(-1);
                 expect(messages.connectionerror).toHaveBeenCalledWith(err);
                 done();
@@ -70,7 +70,7 @@ describe('SqlCli', () => {
             var command = '.tables';
             options.args = { query: command };
             dbservice.connect = jasmine.createSpy().andReturn(Q());
-            invoker.run = function(line) {
+            invoker.run = line => {
                 expect(line).toEqual(command);
                 done();
             };
@@ -88,16 +88,16 @@ describe('SqlCli', () => {
 
             var lineCallback;
 
-            var nextFuncs = [function(code) {                
+            var nextFuncs = [code => {                
                 lineCallback(commands[0]);                
-            }, function(code) {
+            }, code => {
                 lineCallback(commands[1]);                
                 expect(invoker.run).toHaveBeenCalledWith('select 1\r\nfrom dual');
                 expect(invoker.run.callCount).toEqual(1);
                 done();
             }];
 
-            prompt.next = jasmine.createSpy().andCallFake(function(code) {   
+            prompt.next = jasmine.createSpy().andCallFake(code => {   
                 var impl = nextFuncs.shift();
                 impl(code);
             });
@@ -117,16 +117,16 @@ describe('SqlCli', () => {
             messages.error = jasmine.createSpy();
             var lineCallback;
 
-            var nextFuncs = [function(code) {                
+            var nextFuncs = [code => {                
                 lineCallback(command);                
                 expect(invoker.run).toHaveBeenCalledWith(command);
-            }, function(code) {
+            }, code => {
                 expect(messages.error).toHaveBeenCalledWith(err);
                 expect(code).toEqual(-1);
                 done();
             }];
 
-            prompt.next = jasmine.createSpy().andCallFake(function(code) {   
+            prompt.next = jasmine.createSpy().andCallFake(code => {   
                 var impl = nextFuncs.shift();
                 impl(code);
             });
