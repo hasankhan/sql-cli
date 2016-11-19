@@ -1,5 +1,36 @@
 {
     "prompt": "mssql> ",
-    "keywords": [ "select", "top", "from", "where", "order by"
+    "keywords": [
+        "add", "external", "procedure", "ll", "fetch", "public", 
+        "lter", "file", "raiserror", "nd", "fillfactor", "read", 
+        "ny", "for", "readtext", "s", "foreign", "reconfigure", 
+        "sc", "freetext", "references", "uthorization", "freetexttable", 
+        "replication", "ackup", "from", "restore", "egin", "full",
+        "restrict", "etween", "function", "return", "reak", "goto",
+        "revert", "rowse", "grant", "revoke", "ulk", "group", "right",
+        "y", "having", "rollback", "ascade", "holdlock", "rowcount", 
+        "ase", "identity", "rowguidcol", "heck", "identity_insert", 
+        "rule", "heckpoint", "identitycol", "save", "lose", "if", 
+        "schema", "lustered", "in", "securityaudit", "oalesce", "index",
+        "select", "ollate", "inner", "semantickeyphrasetable", 
+        "olumn", "insert", "semanticsimilaritydetailstable", "ommit", 
+        "intersect", "semanticsimilaritytable", "ompute", "into", 
+        "session_user", "onstraint", "is", "set", "ontains", "join",
+        "setuser", "ontainstable", "key", "shutdown", "ontinue", "kill",
+        "some", "onvert", "left", "statistics", "reate", "like", 
+        "system_user", "ross", "lineno", "table", "urrent", "load",
+        "tablesample", "urrent_date", "merge", "textsize", "urrent_time", 
+        "national", "then", "urrent_timestamp", "nocheck", "to", "urrent_user",
+        "nonclustered", "top", "ursor", "not", "tran", "atabase", "null", 
+        "transaction", "bcc", "nullif", "trigger", "eallocate", "of",
+        "truncate", "eclare", "off", "try_convert", "efault", "offsets", 
+        "tsequal", "elete", "on", "union", "eny", "open", "unique", "esc", 
+        "opendatasource", "unpivot", "isk", "openquery", "update", "istinct", 
+        "openrowset", "updatetext", "istributed", "openxml", "use", "ouble",
+        "option", "user", "rop", "or", "values", "ump", "order by", "varying",
+        "lse", "outer", "view", "nd", "over", "waitfor", "rrlvl", "percent", 
+        "when", "scape","pivot", "where", "xcept", "plan", "while", "xec",
+        "precision", "with", "xecute", "primary", "within group", "xists", 
+        "print", "writetext", "xit", "proc"
     ]
 }
