@@ -70,15 +70,17 @@ describe('ResultWriter', () => {
             }];
 
             var json =  M(function() { /***
-            [{
+            [[[{
                 "title": "abc",
                 "count": 54
-            }]
+            }]]]
             ***/});
 
-            writer.start();
-            writer.write(result);
-            writer.end();
+            writer.startResult();
+            writer.startSet();
+            writer.writeRows(result);
+            writer.endSet();
+            writer.endResult();
 
             expect(console.log).toHaveBeenCalled();
             utils.stringEqual(output, json);
@@ -117,9 +119,11 @@ describe('ResultWriter', () => {
             </results>
             ***/});
 
-            writer.start();
-            writer.write(result);
-            writer.end();
+            writer.startResult();
+            writer.startSet();
+            writer.writeRows(result);
+            writer.endSet();
+            writer.endResult();
 
             expect(console.log).toHaveBeenCalled();
             utils.stringEqual(output, xml);
@@ -152,9 +156,11 @@ describe('ResultWriter', () => {
             abc     54
             ***/});
 
-            writer.start();
-            writer.write(result);
-            writer.end();
+            writer.startResult();
+            writer.startSet();
+            writer.writeRows(result);
+            writer.endSet();
+            writer.endResult();
 
             expect(console.log).toHaveBeenCalled();
             utils.stringEqual(output, table);
@@ -175,9 +181,11 @@ describe('ResultWriter', () => {
                 count: 54
             }];
 
-            writer.start();
-            writer.write(result);
-            writer.end();
+            writer.startResult();
+            writer.startSet();
+            writer.writeRows(result);
+            writer.endSet();
+            writer.endResult();
 
             expect(csvWriter.writeRecord).toHaveBeenCalledWith(['title', 'count']);
             expect(csvWriter.writeRecord).toHaveBeenCalledWith(['abc', 54]);
