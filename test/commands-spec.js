@@ -3,10 +3,11 @@ var proxyquire =  require('proxyquire').noPreserveCache(),
     _ = require('underscore'),
     Queries = require('../lib/commands/queries'),
     Utils = require('../lib/commands/utils'),
-    Invoker = require('../lib/commands').Invoker;
+    Invoker = require('../lib/commands').Invoker,
+    EventEmitter = require('events');
 
 describe('Invoker', () => {
-    var readline, exit, invoker, db, messages, writer;
+    var readline, exit, invoker, db, messages, writer, request;
 
     function mockCommands(invoker, mocks, db, names) {
         names.forEach(name => {
@@ -20,12 +21,13 @@ describe('Invoker', () => {
 
     beforeEach(() => {
         messages = {};
+        request = new EventEmitter();
         readline = {
             on: jasmine.createSpy(),
             pause: jasmine.createSpy()
         };
         db = {
-            query: jasmine.createSpy().andReturn(Q([]))
+            query: jasmine.createSpy().andReturn(request)
         };
         writer = {
             write: jasmine.createSpy()
