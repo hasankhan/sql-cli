@@ -30,7 +30,7 @@ describe('Invoker', () => {
             query: jasmine.createSpy().andReturn(request)
         };
         writer = {
-            write: jasmine.createSpy()
+            writeRows: jasmine.createSpy()
         };
         exit = jasmine.createSpy();
 
@@ -46,7 +46,7 @@ describe('Invoker', () => {
     });
 
     it('.help returns commands reference', done => {
-        writer.write.andCallFake(items => {
+        writer.writeRows.andCallFake(items => {
             expect(_.findWhere(items, { command: '.help', description: 'Shows this message' })).toBeDefined();
             expect(_.findWhere(items, { command: '.tables', description: 'Lists all the tables' })).toBeDefined();
             expect(_.findWhere(items, { command: '.databases', description: 'Lists all the databases' })).toBeDefined();
