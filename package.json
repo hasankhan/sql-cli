@@ -46,6 +46,7 @@
     "url": "https://github.com/hasankhan/sql-cli/issues"
   },
   "scripts": {
+    "prepublish": "crlf --set=LF bin/mssql",
     "test": "npm -s run-script jshint && npm -s run-script unit",
     "jshint": "jshint lib",
     "unit": "jasmine-node test"
@@ -54,6 +55,7 @@
     "mssql": "./bin/mssql"
   },
   "devDependencies": {
+    "crlf": "^1.1.0",
     "jasmine-node": "~1.14.3",
     "jshint": "~2.5.1",
     "proxyquire": "~1.0.0"
