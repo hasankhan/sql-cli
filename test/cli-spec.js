@@ -31,7 +31,7 @@ describe('SqlCli', () => {
         });
         cli = new SqlCli();        
         
-        options.init = jasmine.createSpy();
+        options.init = jasmine.createSpy().andReturn(Promise.resolve());
         options.getConnectionInfo = jasmine.createSpy().andReturn({});            
         options.args = {};
         messages.connecting = jasmine.createSpy();        
@@ -42,14 +42,14 @@ describe('SqlCli', () => {
            setup(); 
         });
 
-        it('assumes interactive mode if query is not specified', () => {
+        it('assumes interactive mode if query is not specified', done => {
             options.args = {};
-            testInteractiveMode(true);
+            testInteractiveMode(true, done);
         });
         
-        it('assumes non-interactive mode if query is specified', () => {
+        it('assumes non-interactive mode if query is specified', done => {
             options.args = { query: '.tables' };
-            testInteractiveMode(false);
+            testInteractiveMode(false, done);
         });
         
         it('exits on connection error', done => {
@@ -102,8 +102,9 @@ describe('SqlCli', () => {
                 impl(code);
             });
 
-            cli.run([], {});            
-            lineCallback = prompt.on.argsForCall[0][1];            
+            cli.run([], {}).then(()=>{            
+                lineCallback = prompt.on.argsForCall[0][1];
+            });
         });
 
         it('does not exit if command returns an error', done => {
@@ -131,16 +132,18 @@ describe('SqlCli', () => {
                 impl(code);
             });
 
-            cli.run([], {});            
-            lineCallback = prompt.on.argsForCall[0][1];            
+            cli.run([], {}).then(()=> {            
+                lineCallback = prompt.on.argsForCall[0][1];
+            });
         });
 
-        function testInteractiveMode(expectedValue) {            
+        function testInteractiveMode(expectedValue, done) {            
             dbservice.connect = jasmine.createSpy().andReturn(Q());
             
-            cli.run([], {});
-            
-            expect(messages.interactiveMode).toEqual(expectedValue);
+            cli.run([], {}).then(()=> {            
+                expect(messages.interactiveMode).toEqual(expectedValue);
+                done();
+            });
         }
     });
 });

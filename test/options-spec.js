@@ -61,7 +61,7 @@ describe('Options', () =>{
             });
         });
 
-        it('throws if config does not exist', () =>{
+        it('throws if config does not exist', done =>{
             fs.existsSync = jasmine.createSpy().andReturn(false);
 
             var args = [
@@ -69,8 +69,10 @@ describe('Options', () =>{
                 '-c', 'config.json'
             ];
 
-            var err = new Error("config file 'config.json' does not exist.");
-            expect(options.init.bind(options, args, {})).toThrow(err);
+            options.init(args, {}).catch(err=> {
+                expect(err).toEqual("config file 'config.json' does not exist.");
+                done();
+            });
         });
     });
 
