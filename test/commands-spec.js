@@ -24,7 +24,8 @@ describe('Invoker', () => {
         request = new EventEmitter();
         readline = {
             on: jasmine.createSpy(),
-            pause: jasmine.createSpy()
+            pause: jasmine.createSpy(),
+            close: jasmine.createSpy()
         };
         db = {
             query: jasmine.createSpy().andReturn(request)
@@ -88,7 +89,7 @@ describe('Invoker', () => {
             expect(query).toEqual('SELECT *\r\nFROM test');
             done();
 
-            return new Q(0);
+            return request;
         });
 
         lineCallback('SELECT *\\');
@@ -113,7 +114,7 @@ describe('Invoker', () => {
 
             done();
 
-            return new Q(0);
+            return request;
         });
 
         lineCallback('SELECT *');
