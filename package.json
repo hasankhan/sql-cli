@@ -1,7 +1,7 @@
 {
   "name": "sql-cli",
   "author": "Muhammad Hasan Khan",
-  "version": "0.4.14",
+  "version": "0.5.0",
   "description": "Cross platform command line interface for SQL Server",
   "tags": [
     "sql",
