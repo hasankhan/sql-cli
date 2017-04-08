@@ -4,18 +4,20 @@ var proxyquire =  require('proxyquire').noPreserveCache(),
     utils = require('./utils');
 
 describe('SqlCli', () => {
-    var prompt, dbservice, options, invoker, resultWriter, messages, exit, cli;
+    var prompt, dbservice, options, invoker, resultWriter, messages, exit, cli, promptEventHandlers;
 
     function setup() {
         prompt = {
             addCommand: jasmine.createSpy(),
             on: jasmine.createSpy()
         };
+        promptEventHandlers = {};
         dbservice = {};
         options = {};
         invoker = { 
             commands: []
         };
+        prompt.on.andCallFake((event, handler)=>promptEventHandlers[event]=handler);
         resultWriter = { create: jasmine.createSpy() };
         messages = {};
         exit = jasmine.createSpy();
@@ -86,12 +88,10 @@ describe('SqlCli', () => {
             messages.connected = jasmine.createSpy();
             messages.welcome = jasmine.createSpy();
 
-            var lineCallback;
-
             var nextFuncs = [code => {                
-                lineCallback(commands[0]);                
+                promptEventHandlers['line'](commands[0]);                
             }, code => {
-                lineCallback(commands[1]);                
+                promptEventHandlers['line'](commands[1]);                
                 expect(invoker.run).toHaveBeenCalledWith('select 1\r\nfrom dual');
                 expect(invoker.run.callCount).toEqual(1);
                 done();
@@ -102,9 +102,7 @@ describe('SqlCli', () => {
                 impl(code);
             });
 
-            cli.run([], {}).then(()=>{            
-                lineCallback = prompt.on.argsForCall[0][1];
-            });
+            cli.run([], {});
         });
 
         it('does not exit if command returns an error', done => {
@@ -116,10 +114,9 @@ describe('SqlCli', () => {
             messages.connected = jasmine.createSpy();
             messages.welcome = jasmine.createSpy();
             messages.error = jasmine.createSpy();
-            var lineCallback;
 
             var nextFuncs = [code => {                
-                lineCallback(command);                
+                promptEventHandlers['line'](command);                
                 expect(invoker.run).toHaveBeenCalledWith(command);
             }, code => {
                 expect(messages.error).toHaveBeenCalledWith(err);
@@ -132,9 +129,7 @@ describe('SqlCli', () => {
                 impl(code);
             });
 
-            cli.run([], {}).then(()=> {            
-                lineCallback = prompt.on.argsForCall[0][1];
-            });
+            cli.run([], {});
         });
 
         function testInteractiveMode(expectedValue, done) {            
