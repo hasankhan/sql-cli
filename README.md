@@ -63,6 +63,7 @@ command         description
 --------------  ------------------------------------------
 .help           Shows this message
 .tables         Lists all the tables
+.sprocs         Lists all the stored procedures
 .databases      Lists all the databases
 .read FILENAME  Execute commands in a file
 .run FILENAME   Execute the file as a sql script

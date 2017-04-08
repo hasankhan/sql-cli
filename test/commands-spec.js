@@ -14,9 +14,9 @@ describe('Invoker', () => {
             var CommandType = proxyquire('../lib/commands/' + name, mocks);
             var command = new CommandType(db);
             invoker.commands = _.map(invoker.commands, cmd => {
-                return (cmd.constructor.name == command.constructor.name) ? command : cmd; 
+                return (cmd.constructor.name == command.constructor.name) ? command : cmd;
             });
-        });        
+        });
     }
 
     beforeEach(() => {
@@ -35,7 +35,7 @@ describe('Invoker', () => {
         exit = jasmine.createSpy();
 
         Utils.readFile = jasmine.createSpy().andReturn(readline);
-        
+
         var mocks = {
             './utils': Utils,
             '../../external/exit': exit
@@ -56,6 +56,7 @@ describe('Invoker', () => {
             expect(_.findWhere(items, { command: '.indexes TABLE', description: 'Lists all the indexes of a table' })).toBeDefined();
             expect(_.findWhere(items, { command: '.analyze', description: 'Analyzes the database for missing indexes.' })).toBeDefined();
             expect(_.findWhere(items, { command: '.quit', description: 'Exit the cli' })).toBeDefined();
+            expect(_.findWhere(items, { command: '.sprocs', description: 'Lists all the stored procedures' })).toBeDefined();
 
             done();
         });
@@ -138,5 +139,10 @@ describe('Invoker', () => {
     it('.quit exits the app', () => {
         invoker.run('.quit');
         expect(exit).toHaveBeenCalled();
+    });
+
+    it('.sprocs runs the listSprocsSql query', () => {
+        invoker.run('.sprocs');
+        expect(db.query).toHaveBeenCalledWith(Queries.listSprocsSql());
     });
 });
