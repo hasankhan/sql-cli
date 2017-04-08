@@ -143,8 +143,9 @@ describe('Invoker', () => {
 
     it('.search runs the searchSql query', () => {
         messages.echo = jasmine.createSpy();
-        
+
         invoker.run('.search test');
+        expect(messages.echo).toHaveBeenCalledWith('Searching...');
         expect(db.query).toHaveBeenCalledWith(Queries.searchSql('test'));
     });
 });
