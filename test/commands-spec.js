@@ -140,4 +140,9 @@ describe('Invoker', () => {
         invoker.run('.quit');
         expect(exit).toHaveBeenCalled();
     });
+
+    it('.sprocs runs the listSprocsSql query', () => {
+        invoker.run('.sprocs');
+        expect(db.query).toHaveBeenCalledWith(Queries.listSprocsSql());
+    });
 });
