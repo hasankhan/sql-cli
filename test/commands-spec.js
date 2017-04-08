@@ -140,4 +140,9 @@ describe('Invoker', () => {
         invoker.run('.quit');
         expect(exit).toHaveBeenCalled();
     });
+
+    it('.search runs the searchSql query', () => {
+        invoker.run('.search test');
+        expect(db.query).toHaveBeenCalledWith(Queries.searchSql('test'));
+    });
 });
