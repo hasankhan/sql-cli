@@ -38,11 +38,11 @@ describe('Prompt', () => {
             setup();
         });
 
-        it('fires close event if exit is set', done => {
+        it('fires exit event if exit is set', done => {
             var code = -123;
 
             prompt.exit = true;
-            prompt.on('end', exitCode => {
+            prompt.on('exit', exitCode => {
                 expect(exitCode).toEqual(code);
                 done();
             });
