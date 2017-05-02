@@ -59,20 +59,19 @@ mssql>
 To get the list of all commands use the '.help' command
 ```bash
 mssql> .help
-command         description
---------------  ------------------------------------------
-.help           Shows this message
-.tables         Lists all the tables
-.column COLUMN  Search tables for column 
-.sprocs         Lists all the stored procedures
-.search         Search all columns in all tables for a value
-.databases      Lists all the databases
-.read FILENAME  Execute commands in a file
-.run FILENAME   Execute the file as a sql script
-.schema TABLE   Shows the schema of a table
-.indexes TABLE  Lists all the indexes of a table
-.analyze        Analyzes the database for missing indexes.
-.quit           Exit the cli
+command                               description                                                     
+------------------------------------  ----------------------------------------------------------------
+.help                                 Shows this message                                              
+.databases                            Lists all the databases                                         
+.tables                               Lists all the tables                                            
+.sprocs                               Lists all the stored procedures                                 
+.search text TEXT or col COLUMN_NAME  Search text in all fields or search col to find column in tables
+.indexes TABLE                        Lists all the indexes of a table                                
+.read FILENAME                        Execute commands in a file                                      
+.run FILENAME                         Execute the file as a sql script                                
+.schema TABLE                         Shows the schema of a table                                     
+.analyze                              Analyzes the database for missing indexes.                      
+.quit                                 Exit the cli
 ```
 
 To get the list of databases use the '.databases' command
