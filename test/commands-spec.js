@@ -59,6 +59,7 @@ describe('Invoker', () => {
             expect(_.findWhere(items, { command: '.quit', description: 'Exit the cli' })).toBeDefined();
             expect(_.findWhere(items, { command: '.sprocs', description: 'Lists all the stored procedures' })).toBeDefined();
             expect(_.findWhere(items, { command: '.search', description: 'Search all columns in all tables for a value' })).toBeDefined();
+            expect(_.findWhere(items, { command: '.column COLUMN', description: 'Search tables for column' })).toBeDefined();
 
             done();
         });
@@ -154,5 +155,12 @@ describe('Invoker', () => {
         invoker.run('.search test');
         expect(messages.echo).toHaveBeenCalledWith('Searching...');
         expect(db.query).toHaveBeenCalledWith(Queries.searchSql('test'));
+    });
+
+    it('.column runs the getColumnsSql query', () => {
+        messages.echo = jasmine.createSpy();
+
+        invoker.run('.column test');
+        expect(db.query).toHaveBeenCalledWith(Queries.getColumnsSql('test'));
     });
 });
