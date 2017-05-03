@@ -60,8 +60,8 @@ describe('Invoker', () => {
             expect(_.findWhere(items, { command: '.sprocs', description: 'Lists all the stored procedures' })).toBeDefined();
             expect(_.findWhere(
               items,
-              { command: '.search text TEXT or col COLUMN_NAME',
-                description: 'Search text in all fields or search col to find column in tables' }
+              { command: '.search TYPE VALUE',
+                description: 'Searches for a value of specific type (col|text)' }
             )).toBeDefined();
 
             done();
