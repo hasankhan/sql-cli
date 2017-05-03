@@ -59,19 +59,17 @@ mssql>
 To get the list of all commands use the '.help' command
 ```bash
 mssql> .help
-command         description
---------------  ------------------------------------------
-.help           Shows this message
-.tables         Lists all the tables
-.sprocs         Lists all the stored procedures
-.search         Search all columns in all tables for a value
-.databases      Lists all the databases
-.read FILENAME  Execute commands in a file
-.run FILENAME   Execute the file as a sql script
-.schema TABLE   Shows the schema of a table
-.indexes TABLE  Lists all the indexes of a table
-.analyze        Analyzes the database for missing indexes.
-.quit           Exit the cli
+.help               Shows this message                              
+.databases          Lists all the databases                         
+.tables             Lists all the tables                            
+.sprocs             Lists all the stored procedures                 
+.search TYPE VALUE  Searches for a value of specific type (col|text)
+.indexes TABLE      Lists all the indexes of a table                
+.read FILENAME      Execute commands in a file                      
+.run FILENAME       Execute the file as a sql script                
+.schema TABLE       Shows the schema of a table                     
+.analyze            Analyzes the database for missing indexes.      
+.quit               Exit the cli
 ```
 
 To get the list of databases use the '.databases' command
@@ -96,6 +94,32 @@ test      dbo     books  BASE TABLE
 test      dbo     test   BASE TABLE
 
 2 row(s) returned in 24 ms
+```
+
+To find all tables with a specified column name
+```bash
+mssql> .search col ID
+Searching...
+table_name                  schema_name  column_name     
+--------------------------  -----------  ----------------
+Customers                   dbo          ID     
+Products                    dbo          ID
+2 row(s) returned
+
+Executed in 1 ms
+```
+
+To find all records in a database with a value
+```bash
+mssql> .search text john
+Searching...
+ColumnName                  ColumnValue    
+--------------------------  -----------
+[dbo].[Customers].[Name]    John             
+[dbo].[Books].[Author]      John        
+2 row(s) returned
+
+Executed in 1 ms
 ```
 
 To exit the cli use the '.quit' command
