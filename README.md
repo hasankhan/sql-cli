@@ -36,6 +36,7 @@ Options:
   -p, --pass <pass>              Password to use for authentication
   -o, --port <port>              Port to connect to
   -t, --timeout <timeout>        Connection timeout in ms
+  -T, --requestTimeout <timeout> Request timeout in ms
   -d, --database <database>      Database to connect to
   -q, --query <query>            The query to execute
   -v, --tdsVersion <tdsVersion>  Version of tds protocol to use [7_4, 7_2, 7_3_A, 7_3_B, 7_4]
