@@ -31,7 +31,7 @@ Options:
 
   -h, --help                     output usage information
   -V, --version                  output the version number
-  -s, --server <server>          Server to conect to
+  -s, --server <server>          Server to connect to
   -u, --user <user>              User name to use for authentication
   -p, --pass <pass>              Password to use for authentication
   -o, --port <port>              Port to connect to
