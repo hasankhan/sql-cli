@@ -36,6 +36,7 @@ Options:
   -p, --pass <pass>              Password to use for authentication
   -o, --port <port>              Port to connect to
   -t, --timeout <timeout>        Connection timeout in ms
+  -D, --dsn <old style dsn>      Classic DSN connection string
   -d, --database <database>      Database to connect to
   -q, --query <query>            The query to execute
   -v, --tdsVersion <tdsVersion>  Version of tds protocol to use [7_4, 7_2, 7_3_A, 7_3_B, 7_4]
@@ -46,6 +47,13 @@ Options:
 To connect to a SQL Server instance in Azure invoke mssql as follows
 ```bash
 mssql -s abcdef.database.windows.net -u username@abcdef -p thepassword -d mydatabase -e
+```
+
+A classic style DSN connection string may be used in lieu of all other
+options
+
+``` bash
+mssql -D "Server=localhost,1433;UID=DOMAIN\\user;PWD=password"
 ```
 
 You will get a prompt as follows:
